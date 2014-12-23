@@ -1,0 +1,32 @@
+html, body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  width: 700px;
+  margin: 0 auto;
+}
+
+#test {
+  margin-top: 20px;
+  padding: 15px 15px;
+  background-color: #F3EAB0;
+  color: #AFA359;
+  border: 1px solid #DFD490;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+}
+
+li {
+  margin-right: 10px;
+}
+
+li > button {
+  padding: 5px 10px;
+  border-radius: 3px;
+}
