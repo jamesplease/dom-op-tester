@@ -1,5 +1,7 @@
+//
 // This is a simple test that demonstrates
 // that the mutation observer logs our changes
+//
 
 (function() {
   var btn = document.querySelector('#test1');

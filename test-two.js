@@ -1,7 +1,9 @@
+//
 // This demonstrates that the simple replace
 // method causes `n` DOM operations.
 // In this case, there are 4 items, so there are
 // a total of 5 ops. 4 removal ops + 1 replace op.
+//
 
 (function() {
   var btn = document.querySelector('#test2');

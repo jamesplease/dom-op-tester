@@ -1,3 +1,9 @@
+//
+// Like testTwo, but instead of simply replacing the nodes
+// we first clone them. This leads to a single DOM op instead
+// of `n+1` DOM ops.
+//
+
 (function() {
   var btn = document.querySelector('#test3');
 
