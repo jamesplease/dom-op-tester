@@ -1,12 +1,11 @@
 //
-// This demonstrates that the simple replace
-// method causes `n` DOM operations.
-// In this case, there are 4 items, so there are
-// a total of 5 ops. 4 removal ops + 1 replace op.
+// Like testTwo, but we detach the top level view.
+// This leads to a single DOM op instead
+// of `n+1` DOM ops.
 //
 
 (function() {
-  var btn = document.querySelector('#test2');
+  var btn = document.querySelector('#test4');
 
   btn.addEventListener('click', function() {
 
@@ -24,19 +23,21 @@
     var $listClone = $list.clone();
 
     // Kick off the test
-    test.start('two');
+    test.start('three');
 
-    $list.contents().detach();
+    var $span = $('<span>').insertAfter($list);
+    $list.detach();
 
     // Loop through the children in the cloned tree, replacing
-    // them with the children in the existing tree. This gives
-    // us 4 removal ops
+    // them with cloned versions of the elements in the existing
+    // tree. This causes 0 ops
     $listClone.children().each(function(index, li) {
       $(li).replaceWith(lis[index]);
     });
 
-    // The 5th op is the replace
-    test.$el.find('ul').append($listClone.contents());
+    // The only op is the replace
+    $list.empty().append($listClone);
+    $span.replaceWith($list);
 
     test.stop();
   });

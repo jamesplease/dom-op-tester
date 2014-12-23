@@ -11,8 +11,11 @@
 
     // Create our list, and append it to the test node
     var $list = $('<ul></ul>');
-    for(var i=0; i<10000; i++) {
-      $list.append($('<li></li>').addClass('l'+i));
+    var lis = new Array(10000);
+    for(var i=0; i<lis.length; i++) {
+      var $li = $('<li></li>').addClass('l'+i);
+      lis[i] = $li;
+      $list.append($li);
     }
     test.$el.append($list);
 
@@ -26,11 +29,11 @@
     // them with cloned versions of the elements in the existing
     // tree. This causes 0 ops
     $listClone.children().each(function(index, li) {
-      $(li).replaceWith(test.$el.find('.'+li.className).clone(true, true));
+      $(li).replaceWith(lis[index].clone(true));
     });
 
     // The only op is the replace
-    test.$el.find('ul').replaceWith($listClone);
+    test.$el.find('ul').empty().append($listClone);
 
     test.stop();
   });
