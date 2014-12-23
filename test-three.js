@@ -10,7 +10,10 @@
   btn.addEventListener('click', function() {
 
     // Create our list, and append it to the test node
-    var $list = $('<ul><li class="one"></li><li class="two"></li><li class="three"></li><li class="four"></li></ul>');
+    var $list = $('<ul></ul>');
+    for(var i=0; i<10000; i++) {
+      $list.append($('<li></li>').addClass('l'+i));
+    }
     test.$el.append($list);
 
     // Rather than create a new tree from a template, I'm going ahead and cloning it
