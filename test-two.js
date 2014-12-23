@@ -12,8 +12,11 @@
 
     // Create our list, and append it to the test node
     var $list = $('<ul></ul>');
-    for(var i=0; i<10000; i++) {
-      $list.append($('<li></li>').addClass('l'+i));
+    var lis = new Array(10000);
+    for(var i=0; i<lis.length; i++) {
+      var $li = $('<li></li>').addClass('l'+i);
+      lis[i] = $li;
+      $list.append($li);
     }
     test.$el.append($list);
 
@@ -23,15 +26,17 @@
     // Kick off the test
     test.start('two');
 
+    $list.contents().detach();
+
     // Loop through the children in the cloned tree, replacing
     // them with the children in the existing tree. This gives
     // us 4 removal ops
     $listClone.children().each(function(index, li) {
-      $(li).replaceWith(test.$el.find('.'+li.className));
+      $(li).replaceWith(lis[index]);
     });
 
     // The 5th op is the replace
-    test.$el.find('ul').replaceWith($listClone);
+    test.$el.find('ul').append($listClone.contents());
 
     test.stop();
   });
