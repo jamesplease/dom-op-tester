@@ -17,11 +17,25 @@
 //
 
 (function() {
-
-  // The buttons for starting tests
-  var $testBtns = $('li > button');
-
   window.test = {
+
+    create: function(definition) {
+      var $li = $('<li><button>Run ' + definition.name + '</button></li>');
+      $('.test-buttons').append($li);
+
+      $li.on('click', function() {
+        var testObj = {
+          before: definition.before,
+          test: definition.test
+        };
+        testObj.before();
+        window.setTimeout(function() {
+          window.test.start(definition.name);
+          testObj.test();
+          window.test.stop();
+        });
+      });
+    },
 
     // The test element
     $el: $('#test'),
@@ -31,23 +45,25 @@
       this._count = 0;
       this.testName = testName;
       observer.start();
-      console.log('Starting test ' + testName);
+      console.log('Starting "' + testName + '"');
       this.startTime = performance.now();
-      $testBtns.attr('disabled', 'disabled');
+      $('li > button').attr('disabled', 'disabled');
     },
 
     // Stop a test
     stop: function() {
       var tester = this;
       window.setTimeout(function() {
-        console.log('Stopping test ' + tester.testName);
-        console.log('DOM ops:', tester._count);
-        console.log('Total time: ', performance.now() - tester.startTime, '\n\n');
+        console.log('--------------');
+        console.log('"' + tester.testName +'" results:');
+        console.log('Attached node ops:', tester._count);
+        console.log('Total time: ', performance.now() - tester.startTime);
+        console.log('--------------\n\n');
         delete tester.testName;
         delete tester.startTime;
         delete this._count;
         observer.stop();
-        $testBtns.removeAttr('disabled');
+        $('li > button').removeAttr('disabled');
         test.$el.empty().text('The test will be run against this element.');
       });  
     }
