@@ -17,7 +17,7 @@
   // Anytime a mutation happens, we log the time and type to the console
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
-      console.log('@ ' + performance.now() + '; type: ' + mutation.type);
+      test._count++;
     });
   });
 
