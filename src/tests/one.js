@@ -22,6 +22,6 @@ window.test.create({
       $(li).replaceWith(self.lis[index]);
     });
 
-    test.$el.find('ul').append(this.$listClone.contents());
+    this.$list.append(this.$listClone.contents());
   }
 });
