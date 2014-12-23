@@ -29,11 +29,11 @@
     // them with cloned versions of the elements in the existing
     // tree. This causes 0 ops
     $listClone.children().each(function(index, li) {
-      $(li).replaceWith(lis[index]);
+      $(li).replaceWith(lis[index].clone(true));
     });
 
     // The only op is the replace
-    test.$el.find('ul').append($listClone.contents());
+    test.$el.find('ul').empty().append($listClone);
 
     test.stop();
   });
